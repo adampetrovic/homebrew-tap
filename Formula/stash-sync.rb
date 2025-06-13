@@ -5,21 +5,21 @@
 class StashSync < Formula
   desc "Sync media files to Kubernetes Stash pod"
   homepage "https://github.com/adampetrovic/stash-sync"
-  version "1.2.0"
+  version "1.3.0"
   license "MIT"
   depends_on :macos
 
   on_intel do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.2.0/stash-sync_Darwin_x86_64.tar.gz"
-    sha256 "905556a0a948cd1068ea6d83439d8439194051734fda25839f8a482dc8024dd3"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.0/stash-sync_Darwin_x86_64.tar.gz"
+    sha256 "7c80345b516b755beceee694125571659f08ead5d08fca4553111c93df8e174e"
 
     def install
       bin.install "stash-sync"
     end
   end
   on_arm do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.2.0/stash-sync_Darwin_arm64.tar.gz"
-    sha256 "e255368d985fd10f288f925b08892bd41a1d4183bbfe7f885d423ad6c4ed28c9"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.0/stash-sync_Darwin_arm64.tar.gz"
+    sha256 "b0323c19445009d6917f5cc491a51568b2f47283a23a8cb8c02fe2e5e139c550"
 
     def install
       bin.install "stash-sync"
