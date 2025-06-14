@@ -4,8 +4,9 @@ class WorkScripts < Formula
   head "https://github.com/adampetrovic/work-scripts.git", branch: "main"
 
   def install
-    bin.install Dir["scripts/*"]
-    # For Go scripts, you'd build them first:
-    # system "go", "build", "-o", "#{bin}/script-name", "script.go"
+    Dir["*.sh"].each do |script|
+      name_without_extension = File.basename(script, ".sh")
+      bin.install script => name_without_extension
+    end
   end
 end
