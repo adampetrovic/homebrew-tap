@@ -5,21 +5,27 @@
 class StashSync < Formula
   desc "Sync media files to Kubernetes Stash pod"
   homepage "https://github.com/adampetrovic/stash-sync"
-  version "1.3.0"
+  version "1.3.1"
   license "MIT"
   depends_on :macos
 
   on_intel do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.0/stash-sync_Darwin_x86_64.tar.gz"
-    sha256 "7c80345b516b755beceee694125571659f08ead5d08fca4553111c93df8e174e"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.1/stash-sync_Darwin_x86_64.tar.gz",
+      headers: [
+        "Authorization: Bearer #{ENV['HOMEBREW_GITHUB_API_TOKEN']}"
+      ]
+    sha256 "f61d6c0cac1c7efc5f054d6a4484dda6137c1f3b5bc2a632d21fdc3df0fc57a0"
 
     def install
       bin.install "stash-sync"
     end
   end
   on_arm do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.0/stash-sync_Darwin_arm64.tar.gz"
-    sha256 "b0323c19445009d6917f5cc491a51568b2f47283a23a8cb8c02fe2e5e139c550"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.1/stash-sync_Darwin_arm64.tar.gz",
+      headers: [
+        "Authorization: Bearer #{ENV['HOMEBREW_GITHUB_API_TOKEN']}"
+      ]
+    sha256 "a3ba3ecc9001e9aeaf3d93ffd4c7e9ddf263833f5bc244d2f0c83def42ac4132"
 
     def install
       bin.install "stash-sync"
