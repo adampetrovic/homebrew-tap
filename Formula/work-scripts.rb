@@ -1,7 +1,7 @@
 class WorkScripts < Formula
   desc "Collection of work utility scripts"
   homepage "https://github.com/adampetrovic/work-scripts"
-  head "git@github.com:adampetrovic/work-scripts.git"
+  head "https://github.com/adampetrovic/work-scripts.git"
 
   def install
     bin.install Dir["scripts/*"]
