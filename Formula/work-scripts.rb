@@ -18,5 +18,8 @@ class WorkScripts < Formula
       system "go", "build", "-o", name_without_extension, script
       bin.install name_without_extension
     end
+
+    # Install zsh aliases file
+    (share/"work-scripts").install "aliases.zsh"
   end
 end
