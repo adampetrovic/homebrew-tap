@@ -3,6 +3,8 @@ class WorkScripts < Formula
   homepage "https://github.com/adampetrovic/work-scripts"
   head "https://github.com/adampetrovic/work-scripts.git", branch: "main"
 
+  depends_on "go" => :build
+
   def install
     # Install shell scripts
     Dir["*.sh"].each do |script|
