@@ -4,6 +4,7 @@ class WorkScripts < Formula
   head "https://github.com/adampetrovic/work-scripts.git", branch: "main"
 
   depends_on "go" => :build
+  depends_on "gum"
 
   def install
     # Install shell scripts
