@@ -16,8 +16,11 @@ class WorkScripts < Formula
     # Compile and install Go scripts
     Dir["*.go"].each do |script|
       name_without_extension = File.basename(script, ".go")
-      system "go", "build", "-o", name_without_extension, script
-      bin.install name_without_extension
+      Dir.mktmpdir do |tmpdir|
+        output_path = File.join(tmpdir, name_without_extension)
+        system "go", "build", "-o", output_path, script
+        bin.install output_path
+      end
     end
 
     # Install zsh aliases file
