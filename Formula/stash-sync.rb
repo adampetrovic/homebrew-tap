@@ -27,6 +27,13 @@ class StashSync < Formula
     end
   end
 
+  service do
+    run [opt_bin/"stash-sync", "--watch"]
+    keep_alive true
+    log_path var/"log/stash-sync.log"
+    error_log_path var/"log/stash-sync-error.log"
+  end
+
   test do
     system "#{bin}/stash-sync --help"
   end
