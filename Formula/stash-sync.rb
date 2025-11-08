@@ -6,32 +6,25 @@ require_relative "lib/private_strategy"
 class StashSync < Formula
   desc "Sync media files to Kubernetes Stash pod"
   homepage "https://github.com/adampetrovic/stash-sync"
-  version "1.3.9"
+  version "1.3.10"
   license "MIT"
   depends_on :macos
 
   on_intel do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.9/stash-sync_Darwin_x86_64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-    sha256 "cc9311bd1cf68df707433533045046b6e554975ce62bd7b183e785bd89301e96"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.10/stash-sync_Darwin_x86_64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+    sha256 "a40bee21435591b70227e3eb50fef55b02acf68f1b3ef1acdddeb2884a7aaa64"
 
     def install
       bin.install "stash-sync"
     end
   end
   on_arm do
-    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.9/stash-sync_Darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-    sha256 "c3b2b876a54090b661168b7d170db7bd41075722dd50a1d42c8e9cf5708bcd17"
+    url "https://github.com/adampetrovic/stash-sync/releases/download/v1.3.10/stash-sync_Darwin_arm64.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+    sha256 "e3334ca7ed332a56b81e4107c0240482584e7ae4fe7eb6b6088f0095440c8372"
 
     def install
       bin.install "stash-sync"
     end
-  end
-
-  service do
-    run [opt_bin/"stash-sync", "--watch"]
-    keep_alive true
-    log_path var/"log/stash-sync.log"
-    error_log_path var/"log/stash-sync-error.log"
   end
 
   test do
