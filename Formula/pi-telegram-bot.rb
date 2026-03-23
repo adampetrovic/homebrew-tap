@@ -1,18 +1,25 @@
 class PiTelegramBot < Formula
   desc "Telegram bot that orchestrates pi coding agent sessions via RPC"
   homepage "https://github.com/adampetrovic/pi-telegram-bot"
-  version "1.0.0"
+  url "https://github.com/adampetrovic/pi-telegram-bot/releases/download/v1.0.1/pi-telegram-bot-v1.0.1.tar.gz"
+  sha256 "bb1e647e2bcdb2087e744cdfb96cea1c44c9c443854408027ab84cca96d128d9"
+  version "1.0.1"
   license "MIT"
   depends_on :macos
-
-  url "file:///dev/null"
-  sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  depends_on "node"
 
   def install
-    (bin/"pi-telegram-bot").write(
-      "#!/usr/bin/env bash\n" \
-      "exec /Users/adam/code/pi-telegram-bot/bin/pi-telegram-bot\n"
-    )
+    system "npm", "ci", "--ignore-scripts", "--production"
+
+    libexec.install "dist", "node_modules", "package.json"
+    (libexec/"config.example.yaml").write (buildpath/"config.example.yaml").read
+
+    (bin/"pi-telegram-bot").write <<~EOS
+      #!/usr/bin/env bash
+      set -euo pipefail
+      export PATH="${HOME}/.local/share/mise/shims:/opt/homebrew/bin:${PATH}"
+      exec node "#{libexec}/dist/index.js"
+    EOS
     chmod 0755, bin/"pi-telegram-bot"
   end
 
@@ -22,7 +29,7 @@ class PiTelegramBot < Formula
     log_path var/"log/pi-telegram-bot.log"
     error_log_path var/"log/pi-telegram-bot-error.log"
     environment_variables PATH: "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin",
-                          HOME: "/Users/adam"
+                HOME: ENV["HOME"]
   end
 
   def caveats
@@ -30,7 +37,7 @@ class PiTelegramBot < Formula
       Configure before starting:
 
         mkdir -p ~/.config/pi-telegram-bot
-        cp ~/code/pi-telegram-bot/config.example.yaml ~/.config/pi-telegram-bot/config.yaml
+        cp #{libexec}/config.example.yaml ~/.config/pi-telegram-bot/config.yaml
         # Edit with your bot_token and chat_id
 
       Start the service:
