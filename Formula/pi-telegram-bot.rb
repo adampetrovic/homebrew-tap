@@ -1,9 +1,9 @@
 class PiTelegramBot < Formula
   desc "Telegram bot that orchestrates pi coding agent sessions via RPC"
   homepage "https://github.com/adampetrovic/pi-telegram-bot"
-  url "https://github.com/adampetrovic/pi-telegram-bot/releases/download/v1.0.2/pi-telegram-bot-v1.0.2.tar.gz"
-  sha256 "f27e884044593790dff7f916c7964483d048a491c651429a42f1e0b970fe8349"
-  version "1.0.2"
+  url "https://github.com/adampetrovic/pi-telegram-bot/releases/download/v1.0.3/pi-telegram-bot-v1.0.3.tar.gz"
+  sha256 "d768c42ae01ebf1c7ca08126a8faba7c93ccb26c70eca9c32d398403de43afd4"
+  version "1.0.3"
   license "MIT"
   depends_on :macos
   depends_on "node"
