@@ -9,16 +9,19 @@ class PiAgent < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
   def install
-    (bin/"pi-agent").write <<~SH
+    # Write script with literal paths (not shell-expanded at build time)
+    (bin/"pi-agent").write Utils.safe_popen_read("cat", "-").chomp
+    File.write(bin/"pi-agent", <<~SH)
       #!/usr/bin/env bash
       set -euo pipefail
       export HOME="/Users/adam"
-      cd "$HOME/pi-agent"
+      cd /Users/adam/pi-agent
       eval "$(/opt/homebrew/bin/mise env 2>/dev/null)" || true
       exec pi --mode rpc --no-session <<'PROMPT'
 {"type":"prompt","text":"You are now running as a background service. Wait for webhook events to arrive and process them according to your AGENTS.md instructions. Do not take any action until an event arrives."}
 PROMPT
     SH
+    chmod 0755, bin/"pi-agent"
   end
 
   service do
