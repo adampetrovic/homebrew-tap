@@ -1,7 +1,7 @@
 class PiAgent < Formula
   desc "Pi AI webhook agent — investigates alerts and reports to Telegram"
   homepage "https://github.com/adampetrovic/pi-webhook-bridge"
-  version "0.1.0"
+  version "0.1.1"
   license "MIT"
   depends_on :macos
 
@@ -9,18 +9,15 @@ class PiAgent < Formula
   sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
   def install
-    # Write script with literal paths (not shell-expanded at build time)
-    (bin/"pi-agent").write Utils.safe_popen_read("cat", "-").chomp
-    File.write(bin/"pi-agent", <<~SH)
-      #!/usr/bin/env bash
-      set -euo pipefail
-      export HOME="/Users/adam"
-      cd /Users/adam/pi-agent
-      eval "$(/opt/homebrew/bin/mise env 2>/dev/null)" || true
-      exec pi --mode rpc --no-session <<'PROMPT'
-{"type":"prompt","text":"You are now running as a background service. Wait for webhook events to arrive and process them according to your AGENTS.md instructions. Do not take any action until an event arrives."}
-PROMPT
-    SH
+    script_content = ['#!/usr/bin/env bash',
+                      'set -euo pipefail',
+                      'export HOME="/Users/adam"',
+                      'cd /Users/adam/pi-agent',
+                      'eval "$(/opt/homebrew/bin/mise env 2>/dev/null)" || true',
+                      "exec pi --mode rpc --no-session <<'PROMPT'",
+                      '{"type":"prompt","text":"You are now running as a background service. Wait for webhook events to arrive and process them according to your AGENTS.md instructions. Do not take any action until an event arrives."}',
+                      'PROMPT'].join("\n") + "\n"
+    File.write(bin/"pi-agent", script_content)
     chmod 0755, bin/"pi-agent"
   end
 
