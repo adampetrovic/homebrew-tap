@@ -29,8 +29,9 @@ class PiTelegramBot < Formula
     <<~EOS
       Configure before starting:
 
-        cp ~/code/pi-telegram-bot/env.example ~/.pi/telegram-bot.env
-        # Edit with your TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID
+        mkdir -p ~/.config/pi-telegram-bot
+        cp ~/code/pi-telegram-bot/config.example.yaml ~/.config/pi-telegram-bot/config.yaml
+        # Edit with your bot_token and chat_id
 
       Start the service:
 
