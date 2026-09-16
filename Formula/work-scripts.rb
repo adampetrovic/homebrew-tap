@@ -27,11 +27,4 @@ class WorkScripts < Formula
     (share/"work-scripts").install "aliases.zsh"
     (share/"work-scripts").install "pi-skills" if (buildpath/"pi-skills").directory?
   end
-
-  post_install_steps do
-    if_path_exists "work-scripts/pi-skills", base: :share do
-      run "sync-pi-skills", base: :bin,
-                            args: ["{{share}}/work-scripts/pi-skills", "{{opt_prefix}}/share/work-scripts/pi-skills"]
-    end
-  end
 end
