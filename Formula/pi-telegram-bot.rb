@@ -1,9 +1,9 @@
 class PiTelegramBot < Formula
   desc "Telegram bot that orchestrates pi coding agent sessions via RPC"
   homepage "https://github.com/adampetrovic/pi-telegram-bot"
-  url "https://github.com/adampetrovic/pi-telegram-bot/releases/download/v1.0.25/pi-telegram-bot-v1.0.25.tar.gz"
-  sha256 "b59eb9bc09690b626916140eb444a2ffb1bbe02369db04477d378edbb3aa84bd"
-  version "1.0.25"
+  url "https://github.com/adampetrovic/pi-telegram-bot/releases/download/v1.0.26/pi-telegram-bot-v1.0.26.tar.gz"
+  sha256 "b6bf4c59a59ce4e84f87ef2c6fd32c7d41e688a555a5553fe5facda6fbc694c5"
+  version "1.0.26"
   license "MIT"
   depends_on :macos
   depends_on "node"
@@ -11,7 +11,7 @@ class PiTelegramBot < Formula
   def install
     system "npm", "ci", "--ignore-scripts", "--production"
 
-    libexec.install "dist", "node_modules", "package.json"
+    libexec.install "dist", "extensions", "node_modules", "package.json"
     (libexec/"config.example.yaml").write (buildpath/"config.example.yaml").read
 
     (bin/"pi-telegram-bot").write <<~EOS
@@ -40,13 +40,15 @@ class PiTelegramBot < Formula
         cp #{libexec}/config.example.yaml ~/.config/pi-telegram-bot/config.yaml
         # Edit with your bot_token and chat_id
 
-      Start the service:
+      Install the bundled Pi extension and start the service:
 
+        pi install #{opt_libexec}
         brew services start pi-telegram-bot
     EOS
   end
 
   test do
     assert_predicate bin/"pi-telegram-bot", :exist?
+    assert_predicate libexec/"extensions/telegram-handoff/index.ts", :exist?
   end
 end
