@@ -13,8 +13,6 @@ cask "things" do
     skip "Unversioned trial download"
   end
 
-  depends_on macos: :catalina
-
   app "Things3.app"
 
   zap trash: [
