@@ -23,8 +23,9 @@ class WorkScripts < Formula
       end
     end
 
-    # Install zsh aliases and private Pi skills under the stable opt prefix.
+    # Install zsh aliases and private Pi resources under the stable opt prefix.
     (share/"work-scripts").install "aliases.zsh"
     (share/"work-scripts").install "pi-skills" if (buildpath/"pi-skills").directory?
+    (share/"work-scripts").install "pi-extensions" if (buildpath/"pi-extensions").directory?
   end
 end
